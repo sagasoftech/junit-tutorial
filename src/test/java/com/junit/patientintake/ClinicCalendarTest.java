@@ -34,6 +34,35 @@ class ClinicCalendarTest {
 	}
 	
 	@Test
+	void allowEntryForAppointment_AssertAll() {
+		ClinicCalendar cc = new ClinicCalendar(LocalDate.now());
+		cc.addAppointment("Sagar", "Dighe", "johnson","10/15/2023 10:30 AM");
+		
+		List<PatientAppointment> appointments = cc.getAppointments();
+		
+		//Check if Appointment added
+		assertNotNull(appointments);
+		
+		//Check only one appointment added
+		assertEquals(1, appointments.size());
+		
+	    PatientAppointment enteredAppt = appointments.get(0);
+	    
+	    /*
+	     * If assert fails then next assert does not get executed. 
+	     * With assertAll, all the asserts gets evaluated in the group
+	     * 
+	     */
+	    assertAll(
+		    () -> assertEquals("Sagar", enteredAppt.getPatientFirstName()),
+		    () -> assertEquals("Notmatch", enteredAppt.getPatientLastName()),
+		    () -> assertEquals(Doctor.johnson, enteredAppt.getDoctor()),
+		    () -> assertEquals("10/15/2023 10:30 AM",
+		         enteredAppt.getAppointmentDateTime().format(DateTimeFormatter.ofPattern("M/d/yyyy hh:mm a", Locale.US)))
+	    );
+	}	
+	
+	@Test
 	void allowEntryForAppointment2() {
 		ClinicCalendar cc = new ClinicCalendar(LocalDate.now());
 		cc.addAppointment("Sagar", "Dighe", "johnson","10/15/2023 10:30 AM");
