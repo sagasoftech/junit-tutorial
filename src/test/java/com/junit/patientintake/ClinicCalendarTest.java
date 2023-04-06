@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ClinicCalendarTest {
@@ -86,4 +87,17 @@ class ClinicCalendarTest {
 	      assertEquals(2, calendar.getTodayAppointments().size());
 	   }
 
+	   @Test
+	   /*
+	    * @Disabled is used to signal that the annotated test class or
+	    * test method is currently disabled and should not be executed.  
+	    */
+	   @Disabled
+	   void returnFalseForHasAppointments_Disabled() {
+		   ClinicCalendar calendar = new ClinicCalendar(LocalDate.now());
+		   /*
+		    * Assert that the supplied condition is false.
+		    */
+	      assertFalse(calendar.hasAppointment(LocalDate.of(2018, 9, 1)));
+	   }
 }
