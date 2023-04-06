@@ -8,8 +8,15 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/*
+ * Tags are used to filter which tests are executed for a given test plan.
+ * All the test cases with the said Tag (including different class) 
+ * will get executed. Need little configuration in IDE to run.
+ */
+@Tag("dateTime")
 /*
  * @DisplayName is used to declare a custom display name for the 
  * annotated test class or test method. 

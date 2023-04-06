@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ClinicCalendarTest {
@@ -102,6 +103,7 @@ class ClinicCalendarTest {
 	      assertFalse(calendar.hasAppointment(LocalDate.of(2018, 9, 1)));
 	   }
 
+	   @Tag("dateTime")
 	   @Test
 	   void returnCurrentDaysAppointments() {
 		  ClinicCalendar calendar = new ClinicCalendar(LocalDate.now());
