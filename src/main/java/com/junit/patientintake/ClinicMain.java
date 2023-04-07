@@ -1,7 +1,5 @@
 package com.junit.patientintake;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -109,18 +107,12 @@ public class ClinicMain {
 			Integer inches = scanner.nextInt();
 			System.out.print("  Weight in Pounds: ");
 			Integer pounds = scanner.nextInt();
-			double roundedToTwoPlaces = calculateBMI(inches, pounds);
+			double roundedToTwoPlaces = BMICalculator.calculateBMI(inches, pounds);
 			appt.setBmi(roundedToTwoPlaces);
 			System.out.println("Set patient BMI to " + roundedToTwoPlaces + "\n\n");
 		} else {
 			System.out.println("Patient not found.\n\n");
 		}
-	}
-
-	private static double calculateBMI(Integer inches, Integer pounds) {
-		Double bmi = (double) (pounds * 703) / (inches * inches);
-		double roundedToTwoPlaces = new BigDecimal(bmi).setScale(2, RoundingMode.HALF_UP).doubleValue();
-		return roundedToTwoPlaces;
 	}
 
 	private static Optional<PatientAppointment> findPatientAppointment(String lastName, String firstName) {
