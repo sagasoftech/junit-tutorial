@@ -9,18 +9,23 @@ import com.junit.patientintake.PatientAppointment;
 public class UpcomingAppointmentNotifier {
 
    private ClinicCalendar calendar;
+   private EmailNotifier notifier;
 
-   public UpcomingAppointmentNotifier(ClinicCalendar calendar) {
+   public UpcomingAppointmentNotifier(ClinicCalendar calendar, EmailNotifier notifier) {
+      this.notifier = notifier;
       this.calendar = calendar;
    }
 
    public void run() {
       calendar.getTomorrowAppointments().forEach(appt -> {
-         SmtpMessageSender notifier = new SmtpMessageSender();
-         String email = appt.getPatientLastName().toLowerCase() + appt.getPatientFirstName().toLowerCase() + "@mail.com";
-         System.out.println("Sending with body: " + buildMessageBody(appt));
-         notifier.sendNotification("Appointment Reminder", buildMessageBody(appt), email);
+         sendNotificationForAppointment(appt);
       });
+   }
+
+   private void sendNotificationForAppointment(PatientAppointment appt) {
+      String email = appt.getPatientLastName().toLowerCase() + appt.getPatientFirstName().toLowerCase() + "@mail.com";
+      System.out.println("Sending with body: " + buildMessageBody(appt));
+      notifier.sendNotification("Appointment Reminder", buildMessageBody(appt), email);
    }
 
    private String buildMessageBody(PatientAppointment appt) {
