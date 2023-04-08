@@ -1,6 +1,12 @@
 package com.junit.patientintake;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +14,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -130,5 +138,37 @@ class ClinicCalendarTest {
 		    * Assert that the supplied condition is false.
 		    */
 	      assertFalse(calendar.hasAppointment(LocalDate.of(2018, 9, 1)));
+	   }
+
+	   
+	   @Nested
+	   @DisplayName("return appointments correctly")
+	   class AppointmentsForDay {
+		   
+		   ClinicCalendar calendar = new ClinicCalendar(LocalDate.of(2018, 8, 26)); 
+
+	      @Test
+	      @DisplayName("for today")
+	      void returnCurrentDaysAppointments() {
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "08/26/2018 2:00 pm");
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "08/26/2018 3:00 pm");
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "09/01/2018 2:00 pm");
+	         assertEquals(2, calendar.getTodayAppointments().size());
+	      }
+
+	      @Test
+	      @DisplayName("for tomorrow")
+	      void returnTommorowsAppointments() {
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "08/27/2018 2:00 pm");
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "08/27/2018 2:00 pm");
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "08/26/2018 3:00 pm");
+	         assertEquals(2, calendar.getTomorrowAppointments().size());
+	      }
 	   }
 }
