@@ -171,4 +171,27 @@ class ClinicCalendarTest {
 	         assertEquals(2, calendar.getTomorrowAppointments().size());
 	      }
 	   }
+	   
+	   
+	   
+	   @Nested
+	   @DisplayName("indicate if there are appointments correctly")
+	   class HasAppointments {
+
+		  ClinicCalendar calendar = new ClinicCalendar(LocalDate.of(2018, 8, 26)); 
+		   
+	      @Test
+	      @DisplayName("when there are appointments")
+	      void returnTrueForHasAppointmentsIfThereAreAppointments() {
+	         calendar.addAppointment("Jim", "Weaver", "avery",
+	            "09/01/2018 2:00 pm");
+	         assertTrue(calendar.hasAppointment(LocalDate.of(2018, 9, 1)));
+	      }
+
+	      @Test
+	      @DisplayName("when there are no appointments")
+	      void returnFalseForHasAppointmentsIfThereAreNoAppointments() {
+	         assertFalse(calendar.hasAppointment(LocalDate.of(2018, 9, 1)));
+	      }
+	   }
 }
